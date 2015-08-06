@@ -1,0 +1,10 @@
+#ifndef __DELAY_H
+#define __DELAY_H
+
+#include  "stm32l1xx.h"
+
+void delay_us(uint32_t count);
+void delay_ms(uint16_t count);
+void Delay_init(void);
+#endif 
+

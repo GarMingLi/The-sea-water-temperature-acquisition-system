@@ -1,0 +1,13 @@
+.\obj\lib_math.o: ucosiii\uC-LIB\Source\lib_math.c
+.\obj\lib_math.o: .\ucosiii\uC-LIB\Source\lib_math.h
+.\obj\lib_math.o: .\ucosiii\uC-CPU\Ports\cpu.h
+.\obj\lib_math.o: .\ucosiii\uC-CPU\Source\cpu_def.h
+.\obj\lib_math.o: .\ucosiii\uC-CPU\Cfg\cpu_cfg.h
+.\obj\lib_math.o: .\ucosiii\uC-CPU\Source\cpu_core.h
+.\obj\lib_math.o: .\ucosiii\uC-LIB\Source\lib_def.h
+.\obj\lib_math.o: .\ucosiii\uC-LIB\Source\lib_mem.h
+.\obj\lib_math.o: .\ucosiii\uC-CPU\Source\cpu_core.h
+.\obj\lib_math.o: .\app\app_cfg.h
+.\obj\lib_math.o: .\ucosiii\uC-LIB\Source\lib_str.h
+.\obj\lib_math.o: .\ucosiii\uC-LIB\Source\lib_ascii.h
+.\obj\lib_math.o: .\app\app_cfg.h

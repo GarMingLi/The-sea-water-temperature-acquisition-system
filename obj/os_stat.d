@@ -1,0 +1,16 @@
+.\obj\os_stat.o: ucosiii\uCOS-III\Source\os_stat.c
+.\obj\os_stat.o: .\ucosiii\uCOS-III\Source\os.h
+.\obj\os_stat.o: .\ucosiii\uCOS-III\Cfg\os_cfg.h
+.\obj\os_stat.o: .\ucosiii\uC-CPU\Ports\cpu.h
+.\obj\os_stat.o: .\ucosiii\uC-CPU\Source\cpu_def.h
+.\obj\os_stat.o: .\ucosiii\uC-CPU\Cfg\cpu_cfg.h
+.\obj\os_stat.o: .\ucosiii\uC-CPU\Source\cpu_core.h
+.\obj\os_stat.o: .\ucosiii\uC-LIB\Source\lib_def.h
+.\obj\os_stat.o: .\ucosiii\uC-LIB\Source\lib_mem.h
+.\obj\os_stat.o: .\ucosiii\uC-CPU\Source\cpu_core.h
+.\obj\os_stat.o: .\app\app_cfg.h
+.\obj\os_stat.o: .\ucosiii\uC-LIB\Source\lib_str.h
+.\obj\os_stat.o: .\ucosiii\uC-LIB\Source\lib_ascii.h
+.\obj\os_stat.o: .\app\app_cfg.h
+.\obj\os_stat.o: .\ucosiii\uCOS-III\Source\os_type.h
+.\obj\os_stat.o: .\ucosiii\uCOS-III\Ports\os_cpu.h
