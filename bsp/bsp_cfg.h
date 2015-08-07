@@ -48,21 +48,20 @@
 
 
 
-#define   Temp_N       10     //??????
-#define   WP_N         20     //??????
+#define   Temp_N       10     //温度采集个数
+#define   WP_N         20     //水压采集个数
 
 #define  NVIC_PriorityGroup     NVIC_PriorityGroup_2          //??????   0-3   0-3
 
-#define  Preemption_RTC         2           //RTC?????
-#define  SubPri_RTC             0           //RTC?????
-#define  Preemption_NRF         1           //NRF?????
-#define  SubPri_NRF             0           //NRF?????
-#define  Preemption_EXIT        0           //?????????
-#define  SubPri_EXIT            0           //?????????
+#define  Preemption_RTC         2           //RTC抢占优先级
+#define  SubPri_RTC             0           //RTC响应优先级
+#define  Preemption_NRF         1           //NRF抢占优先级
+#define  SubPri_NRF             0           //NRF响应优先级
+#define  Preemption_EXIT        0           //外部中断抢占优先级
+#define  SubPri_EXIT            0           //外部中断响应优先级
 
-
-#define  BKP_Read_RTC()      RTC_ReadBackupRegister(RTC_BKP_DR0)
-#define  BKP_RTC_Flag        0x32F2
-#define  BKP_Write_RTC()     RTC_WriteBackupRegister(RTC_BKP_DR0, BKP_RTC_Flag)
+#define  BKP_CheckLOCK_RTC()      RTC_ReadBackupRegister(RTC_BKP_DR0)
+#define  BKP_RTC_Flag             0x32F2
+#define  BKP_LOCK_RTC()           RTC_WriteBackupRegister(RTC_BKP_DR0, BKP_RTC_Flag)
 
 

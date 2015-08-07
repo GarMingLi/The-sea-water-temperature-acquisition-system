@@ -3,8 +3,8 @@
 
 #include "bsp.h"
 
-// #define  RTC_CLOCK_SOURCE_LSI /* 用内置的32K 时钟晶振源 */
-#define  RTC_CLOCK_SOURCE_LSE /* 用外置的32.768K 时钟晶振源 */
+#define  RTC_CLOCK_SOURCE_LSI /* 用内置的32K 时钟晶振源 */
+//#define  RTC_CLOCK_SOURCE_LSE /* 用外置的32.768K 时钟晶振源 */
 
 extern volatile uint32_t Alarmk_TIME ;  //闹钟定时时间
 

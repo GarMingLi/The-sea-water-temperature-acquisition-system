@@ -12,7 +12,7 @@ static RTC_InitTypeDef  RTC_InitStructure;
 // static RTC_AlarmTypeDef  RTC_AlarmStructure;
 static RTC_DateTypeDef  RTC_DateStructure; 
 
-static uint8_t time[]={15,8,8,11,11,11};   
+uint8_t time[]={14,4,19,11,11,41};   
   
 Time Set_Clock;
 
@@ -133,7 +133,7 @@ void clock_ini(void)
 void Set_Time(uint8_t * Dat_Time)
 {
    	  uint32_t temp,tm;
-	  Set_Clock.Year=Dat_Time[0];
+	  Set_Clock.Year=2000+Dat_Time[0];
       Set_Clock.Month=Dat_Time[1];
 	  Set_Clock.Day=Dat_Time[2];
 	  Set_Clock.Hour=Dat_Time[3];

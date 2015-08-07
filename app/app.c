@@ -153,11 +153,16 @@ static void Task1(void *p_arg)
     CPU_INT08U data[32];
     CPU_INT08U sign = 0;
     CPU_INT16U WP_temp = 0;
+    CPU_INT08U Count = 0;
+    CPU_INT08U time[]={15,8,30,23,59,11};   
     OSTimeDly(  (OS_TICK    )200                                                         , 
                 (OS_OPT     )OS_OPT_TIME_DLY                                             , 
                 (OS_ERR    *)&err)                                                       ;
         
     while(1)                                                                             {			                                                  ;
+        if (5 == Count++){
+            Set_Time(time);
+        }
         Read_Temperature(&sign,&WT_temp)                                                 ;	 								
 		memset(data,'\0',sizeof(data))                                                   ;	
         itoa(WT_temp, &data[0],10)                                                       ;
@@ -184,6 +189,42 @@ static void Task1(void *p_arg)
         CAT24C_Selective_R(0x31, data, strlen((char *)aa))                               ;
         USART1_SendString(data, strlen((char *)data))                                    ; 
        
+        memset(data,'\0',sizeof(data))                                                   ;	
+        strcat((char *)data,"Year:")                                                     ;
+        itoa(Get_Time().Year+2000, &data[5],10)                                               ;
+        strcat((char *)data,"\t")                                                        ;
+		USART1_SendString(data,strlen((char *)data))                                     ;
+        
+        memset(data,'\0',sizeof(data))                                                   ;	
+        strcat((char *)data,"Month:")                                                    ;
+        itoa(Get_Time().Month, &data[6],10)                                              ;
+        strcat((char *)data,"\t")                                                        ;
+		USART1_SendString(data,strlen((char *)data))                                     ;
+        
+        memset(data,'\0',sizeof(data))                                                   ;	
+        strcat((char *)data,"Day:")                                                      ;
+        itoa(Get_Time().Day, &data[4],10)                                                ;
+        strcat((char *)data,"\t")                                                        ;
+		USART1_SendString(data,strlen((char *)data))                                     ;
+        
+        memset(data,'\0',sizeof(data))                                                   ;	
+        strcat((char *)data,"Hour:")                                                     ;
+        itoa(Get_Time().Hour, &data[5],10)                                               ;
+        strcat((char *)data,"\t")                                                        ;
+		USART1_SendString(data,strlen((char *)data))                                     ;
+        
+        memset(data,'\0',sizeof(data))                                                   ;	
+        strcat((char *)data,"Min:")                                                      ;
+        itoa(Get_Time().Min, &data[4],10)                                                ;
+        strcat((char *)data,"\t")                                                        ;
+		USART1_SendString(data,strlen((char *)data))                                     ;
+        
+        memset(data,'\0',sizeof(data))                                                   ;	
+        strcat((char *)data,"Sec:")                                                      ;
+        itoa(Get_Time().Sec, &data[4],10)                                                ;
+        strcat((char *)data,"\n")                                                        ;
+		USART1_SendString(data,strlen((char *)data))                                     ;
+        
         OSTimeDly(  (OS_TICK    )2000                                                    , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
