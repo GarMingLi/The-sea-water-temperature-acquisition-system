@@ -30,14 +30,15 @@ uint16_t Read_Temp_Filter()
     return temp;   
 }
 
-uint16_t Read_WP_Filter()
+uint16_t Read_WP_Filter(pfunc delay, uint16_t ms)
 {
     uint16_t  WP_Data[WP_N]; 
     uint8_t i;
     uint16_t temp;
     uint32_t Sum = 0;
     for(i=0; i<WP_N; i++){
-        WP_Data[i] = W_P_Sensor_Read()* ADC_CONVERT_RATIO;;
+        WP_Data[i] = W_P_Sensor_Read();
+        (*delay)(ms);   
     }
     
     L_From_B(WP_Data,WP_N);
@@ -45,7 +46,7 @@ uint16_t Read_WP_Filter()
     for(i=1; i<WP_N-1; i++){
         Sum += WP_Data[i];
     }
-    temp = Sum/(WP_N-2);
+    temp = Sum/(WP_N-2)* ADC_CONVERT_RATIO;
     return temp;   
 }
 

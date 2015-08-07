@@ -26,6 +26,12 @@
 #define  DS18B20_PType      GPIOB
 #define  DS18B20_Pin        GPIO_Pin_9
 
+#define  WP_Pin             GPIO_Pin_0
+#define  WP_PCLOCK          RCC_AHBPeriph_GPIOB
+#define  WP_PType           GPIOB
+#define  WP_ADC_CHANNEL     ADC_Channel_8
+#define  WP_ADC_Source      ADC1
+
 #define  NRF20L01_SPI       SPI1
 #define  NRF20L01_PCLOCK    RCC_AHBPeriph_GPIOB
 #define  NRF_IRQ_PType      GPIOB

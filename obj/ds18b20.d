@@ -47,9 +47,9 @@
 .\obj\ds18b20.o: .\bsp\inc\delay.h
 .\obj\ds18b20.o: .\bsp\inc\ds18b20.h
 .\obj\ds18b20.o: .\bsp\inc\W_P_Sensor.h
+.\obj\ds18b20.o: .\bsp\bsp.h
 .\obj\ds18b20.o: .\bsp\inc\RTC.h
 .\obj\ds18b20.o: .\bsp\inc\cat24c516.h
-.\obj\ds18b20.o: .\bsp\bsp.h
 .\obj\ds18b20.o: .\bsp\inc\NRF24L01.h
 .\obj\ds18b20.o: .\bsp\inc\Check_water.h
 .\obj\ds18b20.o: .\bsp\inc\power.h

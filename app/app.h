@@ -17,7 +17,7 @@ static void Task3(void *p_arg);
 
 void Check_Water_DelayMs(uint8_t);
 uint16_t Read_Temp_Filter(void);
-uint16_t Read_WP_Filter(void);
+uint16_t Read_WP_Filter(pfunc delay, uint16_t ms);
 void TimingDelay_Decrement(void);
 
 

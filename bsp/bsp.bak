@@ -124,9 +124,7 @@ void BspInit(void)
     Delay_init()                                         ;
     Check_Water()                                        ;
     clock_ini()                                          ;
-    W_P_Sensor_Init()                                    ;
     Cat24c_PowerOff()                                    ;
-//     WP_PowerOff()                                        ;
     Power_3_3_OFF()                                      ;
     Power_5_OFF()                                        ;
 }

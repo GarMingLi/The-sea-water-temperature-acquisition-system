@@ -1,14 +1,13 @@
 #ifndef __W_P_SENSOR_H_
 #define __W_P_SENSOR_H_
 
-#include  "stm32l1xx.h"
+#include "bsp.h"
 
-#define  MEASUREMENT_PIN             GPIO_Pin_0
-#define  MEASUREMENT_GPIO_CLK        RCC_AHBPeriph_GPIOB
-#define  MEASUREMENT_GPIO            GPIOB
-#define  MEASUREMENT_ADC_CHANNEL     ADC_Channel_8
-#define  APOSTROPHE_OFF              APOSTROPHE_OFF
-#define  ADC_Source                  ADC1
+#define  MEASUREMENT_PIN             WP_Pin
+#define  MEASUREMENT_GPIO_CLK        WP_PCLOCK
+#define  MEASUREMENT_GPIO            WP_PType
+#define  MEASUREMENT_ADC_CHANNEL     WP_ADC_CHANNEL
+#define  ADC_Source                  WP_ADC_Source
 #define  ADC_CONVERT_RATIO           3300 /4095   
 
 

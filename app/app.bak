@@ -114,6 +114,10 @@ static void Task0(void *p_arg)
 //                 PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                 ;
                 Cat24c_PowerOff()                                                        ;
                 Power_3_3_OFF()                                                          ;
+                Power_5_OFF()                                                            ;
+                OSTimeDly(  (OS_TICK    )200                                                       , 
+                            (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+                            (OS_ERR    *)&err)                                                   ;
                 OSTaskSuspend(  (OS_TCB   *) &task1TCB                                   , 
                                 (OS_ERR   *) &err)                                       ;				
 			    OSTaskResume(   (OS_TCB   *) &task2TCB                                   , 
@@ -125,6 +129,7 @@ static void Task0(void *p_arg)
             if((flag & 0x10) == 0x10)                                                    {
 	            flag = 0x01                                                              ; 
                 Power_3_3_ON()                                                           ;
+                Power_5_ON()                                                             ;                                 
                 IIC_Init()                                                               ;
                 OSTaskSuspend(  (OS_TCB   *) &task2TCB                                   , 
                                 (OS_ERR   *) &err)                                       ;				
@@ -144,23 +149,42 @@ static void Task1(void *p_arg)
 {
     OS_ERR  err                                                                          ;
     CPU_INT08U aa[] = "0123456789\t";
-    CPU_INT08U bb[] = "abcdefghif\t";
-    CPU_INT08U cc[11] = {0};
-    while(1)                                                                             {			         
-        GPIO_ToggleBits(Led1_PType, Led1_Pin)                                            ;
-        CAT24C_Word_W(0x31, aa, strlen((char *)aa))                                      ;
-        OSTimeDly(  (OS_TICK    )2                                                       , 
+    CPU_INT16U WT_temp = 0;
+    CPU_INT08U data[32];
+    CPU_INT08U sign = 0;
+    CPU_INT16U WP_temp = 0;
+    OSTimeDly(  (OS_TICK    )200                                                         , 
+                (OS_OPT     )OS_OPT_TIME_DLY                                             , 
+                (OS_ERR    *)&err)                                                       ;
+        
+    while(1)                                                                             {			                                                  ;
+        Read_Temperature(&sign,&WT_temp)                                                 ;	 								
+		memset(data,'\0',sizeof(data))                                                   ;	
+        itoa(WT_temp, &data[0],100)                                                       ;
+        strcat((char *)data,"\t")                                                        ;
+        USART1_SendString(data,strlen((char *)data))                                     ;
+        OSTimeDly(  (OS_TICK    )20                                                     , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
-        CAT24C_Selective_R(0x31, cc, strlen((char *)aa))                                 ;
-        USART1_SendString(&cc[0], strlen((char *)cc))                                    ; 
-        CAT24C_Page_W(0x01, bb, strlen((char *)bb))                                      ;
+        
+        WP_temp = Read_WP_Filter((pfunc)Check_Water_DelayMs, 10)                                                       ;
+        memset(data,'\0',sizeof(data))                                                   ;	        
+        itoa(WP_temp, &data[0],10)                                                       ;
+        strcat((char *)data,"\t")                                                        ;
+        USART1_SendString(data,strlen((char *)data))                                     ;
         OSTimeDly(  (OS_TICK    )200                                                     , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
-        CAT24C_Sequential_R(0x01, cc, strlen((char *)bb))                                ;
-        USART1_SendString(&cc[0], strlen((char *)cc))                                    ;      
-        OSTimeDly(  (OS_TICK    )3000                                                    , 
+        
+        CAT24C_Word_W(0x31, aa, strlen((char *)aa))                                      ;
+        OSTimeDly(  (OS_TICK    )200                                                     , 
+	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+	                (OS_ERR    *)&err)                                                   ;
+		memset(data,'\0',sizeof(data))                                                   ;	        
+        CAT24C_Selective_R(0x31, data, strlen((char *)aa))                               ;
+        USART1_SendString(data, strlen((char *)data))                                    ; 
+       
+        OSTimeDly(  (OS_TICK    )2000                                                    , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
                                                                                          }
@@ -185,7 +209,7 @@ static void Task3(void *p_arg)
     OS_ERR  err                                                                          ;
     
     while(1)                                                                             {		
-//         GPIO_ToggleBits(Led1_PType, Led1_Pin)                                            ;	         
+        GPIO_ToggleBits(Led1_PType, Led1_Pin)                                            ;	         
 //         LED1_ON();
         OSTimeDly(  (OS_TICK    )200                                                     , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
