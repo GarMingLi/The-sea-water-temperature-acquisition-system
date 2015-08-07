@@ -90,31 +90,4 @@ void Check_Water(void)
 }
 
 
-//SystemInit();
-
-
-
-//or
-
-
-//     RCC_HSEConfig(RCC_HSE_ON);
-//     /* Wait till HSE is ready */
-//     while (RCC_GetFlagStatus(RCC_FLAG_HSERDY) == RESET)
-//     {}
-//     
-//     /* Enable PLL */
-//     RCC_PLLCmd(ENABLE);
-//     
-//     /* Wait till PLL is ready */
-//     while (RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET)
-//     {}
-//     
-//     /* Select PLL as system clock source */
-//     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
-//     
-//     /* Wait till PLL is used as system clock source */
-//     while (RCC_GetSYSCLKSource() != 0x0C)
-//     {}
-
-
 

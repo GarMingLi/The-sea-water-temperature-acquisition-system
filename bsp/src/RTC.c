@@ -2,14 +2,14 @@
 
 
 volatile const uint32_t AsynchPrediv = 0x7F; 
-volatile const uint32_t SynchPrediv = 0xFF;
+volatile const uint32_t SynchPrediv = 0xFF; //(32768/128-1)=0xff
 
 volatile uint32_t Alarmk_TIME = 5;  //闹钟定时时间
 
 
 static RTC_TimeTypeDef  RTC_TimeStructure;
 static RTC_InitTypeDef  RTC_InitStructure;
-// static RTC_AlarmTypeDef  RTC_AlarmStructure;
+static RTC_AlarmTypeDef  RTC_AlarmStructure;
 static RTC_DateTypeDef  RTC_DateStructure; 
 
 static uint8_t time[]={15,8,8,11,11,11};   
@@ -27,8 +27,7 @@ Time Set_Clock;
 static void RTC_NVIC_Configuration(void)
 {
   NVIC_InitTypeDef NVIC_InitStructure;	
-  /* Enable the RTC Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = RTC_WKUP_IRQn;					  //配置外部中断源（秒中断） 
+  NVIC_InitStructure.NVIC_IRQChannel = RTC_Alarm_IRQn;					  //配置外部中断源（秒中断） 
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = Preemption_RTC ;
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = SubPri_RTC;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -38,8 +37,7 @@ static void RTC_NVIC_Configuration(void)
 static void RTC_Alarm_Exit()
 {
     EXTI_InitTypeDef EXTI_InitStructure;  
-    /* RTC Alarm A Interrupt Configuration */
-	//闹钟中断接到第20线外部中断  
+	//闹钟中断接到第17线外部中断  
     EXTI_ClearITPendingBit(EXTI_Line17);  
     EXTI_InitStructure.EXTI_Line = EXTI_Line17;  
     EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;  
@@ -117,50 +115,56 @@ void clock_ini(void)
         RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
         PWR_RTCAccessCmd(ENABLE);
         RTC_WaitForSynchro();
-
-//      RTC_ClearFlag(RTC_FLAG_ALRAF);
-    /* Clear the EXTI Line 17 Pending bit (Connected internally to RTC Alarm) */
-//         EXTI_ClearITPendingBit(EXTI_Line17);
-
+    }   
+    
+    RTC_Alarm_Exit();
+    RTC_NVIC_Configuration();
+    
+    RTC_ClearFlag(RTC_FLAG_ALRAF);
+    PWR_ClearFlag(PWR_FLAG_WU);
+    if(PWR_GetFlagStatus(PWR_FLAG_SB) != RESET) {
+        PWR_ClearFlag(PWR_FLAG_SB);
+        RTC_WaitForSynchro();
     }
-//     
-//     RTC_Alarm_Exit();
-//     RTC_NVIC_Configuration();
 }
 
 
 
 void Set_Time(uint8_t * Dat_Time)
 {
-   	  uint32_t temp,tm;
-	  Set_Clock.Year=Dat_Time[0];
-      Set_Clock.Month=Dat_Time[1];
-	  Set_Clock.Day=Dat_Time[2];
-	  Set_Clock.Hour=Dat_Time[3];
-	  Set_Clock.Min=Dat_Time[4];
-	  Set_Clock.Sec=Dat_Time[5];
+    Set_Clock.Year=Dat_Time[0];
+    Set_Clock.Month=Dat_Time[1];
+    Set_Clock.Day=Dat_Time[2];
+    Set_Clock.Hour=Dat_Time[3];
+    Set_Clock.Min=Dat_Time[4];
+    Set_Clock.Sec=Dat_Time[5];
 	  
-     RTC_TimeStructure.RTC_Hours = Set_Clock.Hour; 
-     RTC_TimeStructure.RTC_Minutes = Set_Clock.Min; 
-     RTC_TimeStructure.RTC_Seconds = Set_Clock.Sec;  
-     RTC_DateStructure.RTC_Year = Set_Clock.Year; 
-     RTC_DateStructure.RTC_Month = Set_Clock.Month; 
-     RTC_DateStructure.RTC_Date = Set_Clock.Day; 
-     
-     while(RTC_SetTime(RTC_Format_BIN, &RTC_TimeStructure) == ERROR){ } 
-     while(RTC_SetDate(RTC_Format_BIN, &RTC_DateStructure) == ERROR){ } 
+    RTC_TimeStructure.RTC_Hours = Set_Clock.Hour; 
+    RTC_TimeStructure.RTC_Minutes = Set_Clock.Min; 
+    RTC_TimeStructure.RTC_Seconds = Set_Clock.Sec;  
+    RTC_DateStructure.RTC_Year = Set_Clock.Year; 
+    RTC_DateStructure.RTC_Month = Set_Clock.Month; 
+    RTC_DateStructure.RTC_Date = Set_Clock.Day; 
+
+    while(RTC_SetTime(RTC_Format_BIN, &RTC_TimeStructure) == ERROR){ } 
+    while(RTC_SetDate(RTC_Format_BIN, &RTC_DateStructure) == ERROR){ } 
         
 }
 
-void Set_Alarm_Time(uint8_t * Dat_Time ,uint8_t Min)
+void Set_Alarm_Time(uint8_t Sec)
 {
-
-   	 
-}
-
-void Set_Alarm(uint32_t tm)
-{											  
-	
+    uint32_t sec_time;
+    RTC_AlarmCmd(RTC_Alarm_A, DISABLE);
+    sec_time = Get_Time().Hour*3600 + Get_Time().Min*60 + Get_Time().Sec + Sec;         
+    RTC_AlarmStructure.RTC_AlarmTime.RTC_Hours = (sec_time / 3600) % 24;
+    RTC_AlarmStructure.RTC_AlarmTime.RTC_Minutes = (sec_time % 3600) / 60;
+    RTC_AlarmStructure.RTC_AlarmTime.RTC_Seconds = sec_time % 60;
+    RTC_AlarmStructure.RTC_AlarmDateWeekDay = Get_Time().Day + (sec_time > 86400 ? 1 : 0);
+    RTC_AlarmStructure.RTC_AlarmDateWeekDaySel = RTC_AlarmDateWeekDaySel_Date;
+    RTC_AlarmStructure.RTC_AlarmMask = RTC_AlarmMask_None;
+    RTC_SetAlarm(RTC_Format_BIN, RTC_Alarm_A, &RTC_AlarmStructure);
+    RTC_ITConfig(RTC_IT_ALRA, ENABLE);
+    RTC_AlarmCmd(RTC_Alarm_A, ENABLE); 
 }
 
 

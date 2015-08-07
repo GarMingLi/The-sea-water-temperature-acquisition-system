@@ -30,7 +30,6 @@ static void RTC_Alarm_Exit(void);
 extern void Set_Time(uint8_t * Dat_Time);
 extern Time Get_Time(void);
 extern void clock_ini(void);
-extern void Set_Alarm_Time(uint8_t * Dat_Time,uint8_t Min);
-extern void Set_Alarm(uint32_t tm);	
+extern void Set_Alarm_Time(uint8_t Sec);
 			   
 #endif 

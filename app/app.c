@@ -148,7 +148,7 @@ static void Task0(void *p_arg)
 static void Task1(void *p_arg)
 {
     OS_ERR  err                                                                          ;
-    CPU_INT08U aa[] = "0123456789\t";
+//     CPU_INT08U aa[] = "0123456789\t";
     CPU_INT16U WT_temp = 0;
     CPU_INT08U data[32];
     CPU_INT08U sign = 0;
@@ -159,39 +159,46 @@ static void Task1(void *p_arg)
                 (OS_OPT     )OS_OPT_TIME_DLY                                             , 
                 (OS_ERR    *)&err)                                                       ;
         
-    while(1)                                                                             {			                                                  ;
-        if (5 == Count++){
-            Set_Time(time);
-        }
+    while(1)                                                                             {			                         
+        if (5 == Count++)                                                                {
+            Set_Time(time)                                                               ;
+            USART1_SendString("Ë¯Ãßmodel\n",strlen((char *)"Ë¯Ãßmodel\n"))               ;  
+            Set_Alarm_Time(5)                                                            ;
+            RTC_WakeUpCmd(ENABLE)                                                        ;
+            PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                        ;
+            RTC_WakeUpCmd(DISABLE)                                                       ;
+            Clock_Resume()                                                               ;  
+                                                                                         }
+        
         Read_Temperature(&sign,&WT_temp)                                                 ;	 								
 		memset(data,'\0',sizeof(data))                                                   ;	
         itoa(WT_temp, &data[0],10)                                                       ;
         strcat((char *)data,"\t")                                                        ;
         USART1_SendString(data,strlen((char *)data))                                     ;
-        OSTimeDly(  (OS_TICK    )20                                                     , 
+        OSTimeDly(  (OS_TICK    )20                                                      , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
-        
-        WP_temp = Read_WP_Filter((pfunc)Check_Water_DelayMs, 50)                                                       ;
+
+        WP_temp = Read_WP_Filter((pfunc)Check_Water_DelayMs, 50)                         ;
         memset(data,'\0',sizeof(data))                                                   ;	        
         itoa(WP_temp, &data[0],10)                                                       ;
         strcat((char *)data,"\t")                                                        ;
         USART1_SendString(data,strlen((char *)data))                                     ;
-        OSTimeDly(  (OS_TICK    )20                                                     , 
+        OSTimeDly(  (OS_TICK    )20                                                      , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
         
-        CAT24C_Word_W(0x31, aa, strlen((char *)aa))                                      ;
-        OSTimeDly(  (OS_TICK    )200                                                     , 
-	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
-	                (OS_ERR    *)&err)                                                   ;
-		memset(data,'\0',sizeof(data))                                                   ;	        
-        CAT24C_Selective_R(0x31, data, strlen((char *)aa))                               ;
-        USART1_SendString(data, strlen((char *)data))                                    ; 
+//         CAT24C_Word_W(0x31, aa, strlen((char *)aa))                                      ;
+//         OSTimeDly(  (OS_TICK    )200                                                     , 
+// 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+// 	                (OS_ERR    *)&err)                                                   ;
+// 		memset(data,'\0',sizeof(data))                                                   ;	        
+//         CAT24C_Selective_R(0x31, data, strlen((char *)aa))                               ;
+//         USART1_SendString(data, strlen((char *)data))                                    ; 
        
         memset(data,'\0',sizeof(data))                                                   ;	
         strcat((char *)data,"Year:")                                                     ;
-        itoa(Get_Time().Year+2000, &data[5],10)                                               ;
+        itoa(Get_Time().Year+2000, &data[5],10)                                          ;
         strcat((char *)data,"\t")                                                        ;
 		USART1_SendString(data,strlen((char *)data))                                     ;
         

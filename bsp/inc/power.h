@@ -5,6 +5,7 @@
 
 
 extern  void power_init(void);
+extern  void Clock_Resume(void);
 extern  void Cat24c_PowerOff(void);
 extern  void WP_PowerOff(void);
 #define  Power_5_ON()         GPIO_SetBits(Power_5_PType, Power_5_Pin) 

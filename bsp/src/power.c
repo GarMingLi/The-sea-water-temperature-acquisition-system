@@ -31,6 +31,15 @@ void power_init()
     GPIO_Init(Power_3_3_PType, &gpio_init)               ;      
 }
 
+void Clock_Resume()
+{
+    RCC_HSEConfig(RCC_HSE_ON)                             ;
+    while (RCC_GetFlagStatus(RCC_FLAG_HSERDY) == RESET) {}
+    RCC_PLLCmd(ENABLE)                                    ;
+    while (RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET) {}
+    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK)             ;
+    while (RCC_GetSYSCLKSource() != 0x0C) {}  
+}
 void Cat24c_PowerOff(void)
 {
     GPIO_InitTypeDef  GPIO_InitStructure                   ;   
