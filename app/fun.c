@@ -9,16 +9,27 @@ void Check_Water_DelayMs(uint8_t ms)
 	             (OS_ERR    *)&err)                                                   ;
 }
 
-uint16_t Read_Temp_Filter()
+uint16_t Read_Temp_Filter(pfunc delay, uint16_t ms)
 {
     uint16_t  Temp_Data[Temp_N]; 
+     OS_ERR  err                                                                      ;
     uint8_t sign;
     uint8_t i;
-    uint16_t temp;
+    uint16_t temp = 0;
     uint32_t Sum = 0;
+    while(1) {
+        Read_Temperature(&sign,&temp);
+        if(sign*temp<600) {
+            break;
+        }
+        OSTimeDly(  (OS_TICK    )50                                                      , 
+	             (OS_OPT     )OS_OPT_TIME_DLY                                         ,  
+	             (OS_ERR    *)&err)                                                   ;
+    }
     for(i=0; i<Temp_N; i++){
         Read_Temperature(&sign,&temp);
         Temp_Data[i] = sign*temp;
+        (*delay)(ms);       
     }
     
     L_From_B(Temp_Data,Temp_N);

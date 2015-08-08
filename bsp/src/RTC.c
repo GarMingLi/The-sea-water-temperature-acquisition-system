@@ -101,6 +101,7 @@ static void RTC_Configuration(void)
 ****************************************************************************/  
 void clock_ini(void)
 {       
+#if defined  (STOP_Mode)  
     if(BKP_CheckLOCK_RTC() != BKP_RTC_Flag){  
         RTC_Configuration();
         RTC_InitStructure.RTC_AsynchPrediv = AsynchPrediv;
@@ -122,10 +123,24 @@ void clock_ini(void)
     
     RTC_ClearFlag(RTC_FLAG_ALRAF);
     PWR_ClearFlag(PWR_FLAG_WU);
+#elif defined  (TANDBY_Mode)     
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+    PWR_RTCAccessCmd(ENABLE);
+    PWR_ClearFlag(PWR_FLAG_WU);
+
     if(PWR_GetFlagStatus(PWR_FLAG_SB) != RESET) {
         PWR_ClearFlag(PWR_FLAG_SB);
         RTC_WaitForSynchro();
-    }
+    }else {
+        RTC_Configuration();
+        RTC_InitStructure.RTC_AsynchPrediv = AsynchPrediv;
+        RTC_InitStructure.RTC_SynchPrediv = SynchPrediv;
+        RTC_InitStructure.RTC_HourFormat = RTC_HourFormat_24;       
+        while(RTC_Init(&RTC_InitStructure) == ERROR) {}
+        Set_Time(time);
+        RTC_ClearFlag(RTC_FLAG_ALRAF);
+    }  
+#endif    
 }
 
 
@@ -165,6 +180,8 @@ void Set_Alarm_Time(uint8_t Sec)
     RTC_SetAlarm(RTC_Format_BIN, RTC_Alarm_A, &RTC_AlarmStructure);
     RTC_ITConfig(RTC_IT_ALRA, ENABLE);
     RTC_AlarmCmd(RTC_Alarm_A, ENABLE); 
+    RTC_ClearFlag(RTC_FLAG_ALRAF);
+    PWR_ClearFlag(PWR_FLAG_WU);
 }
 
 

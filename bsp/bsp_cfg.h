@@ -1,6 +1,9 @@
 #define Led_Debug                         //使用Led
 #define USART_Debug                       //使用串口
 
+#define  STOP_Mode                        //使用STOP模式
+// #define  TANDBY_Mode                      //使用TANDBY模式
+
 #ifdef Led_Debug
     #define Led1_PType      GPIOA
     #define Led1_Pin        GPIO_Pin_10

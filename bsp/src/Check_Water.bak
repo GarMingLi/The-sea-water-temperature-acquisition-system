@@ -75,7 +75,7 @@ void EXTI0_IRQHandler(void)
       if(PWR_GetFlagStatus(PWR_FLAG_WU) != RESET)                          {    // 检查唤醒标志是否设置              
           PWR_ClearFlag(PWR_FLAG_WU)                                       ;    // 清除唤醒标志 
                                                                            } 
-      PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                ;                                                                             
+      Clock_Resume()                                                       ;                                                                             
       EXTI_ClearITPendingBit(EXTI_Line0)                                   ;	//清除中断请求标志
                                                                            }
 }

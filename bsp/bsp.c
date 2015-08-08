@@ -122,12 +122,12 @@ void BspInit(void)
 #endif    
  
     Delay_init()                                         ;
+    USART1_SendString("hehe\n",strlen((char *)"hehe\n")) ; 
     Check_Water()                                        ;
     clock_ini()                                          ;
-    W_P_Sensor_Init()                                    ;
-    Cat24c_PowerOff()                                    ;
 //     WP_PowerOff()                                        ;
     Power_3_3_OFF()                                      ;
     Power_5_OFF()                                        ;
+    USART1_SendString("jixuhehe\n",strlen((char *)"jixuhehe\n")) ; 
 }
 

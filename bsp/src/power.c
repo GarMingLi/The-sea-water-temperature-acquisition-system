@@ -2,7 +2,6 @@
 
 void power_init()
 {
-    //     PWR_WakeUpPinCmd(PWR_WakeUpPin_1, ENABLE)     ;
     GPIO_InitTypeDef  gpio_init                          ;  
 
     GPIO_StructInit((GPIO_InitTypeDef*)&gpio_init)       ;
@@ -77,10 +76,20 @@ void WP_PowerOff(void)
     GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL                    ;
     GPIO_Init(MEASUREMENT_GPIO, &GPIO_InitStructure)                    ;
     ADC_PowerDownCmd(ADC_Source, ADC_PowerDown_Idle_Delay, DISABLE)     ;
-    ADC_Cmd(ADC_Source, DISABLE)                                        ;
-    while (ADC_GetFlagStatus(ADC_Source, ADC_FLAG_EOC) == RESET) {} 	
+    ADC_Cmd(ADC_Source, DISABLE)                                        ;	
 }
 
+void WP_DS18B20Off(void)
+{
+    GPIO_InitTypeDef  GPIO_InitStructure                   ;     
+    GPIO_InitStructure.GPIO_Pin = DS18B20_Pin              ;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN            ;
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP          ;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_400KHz      ;
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP            ;
+    GPIO_Init(DS18B20_PType, &GPIO_InitStructure)          ;
+
+}
 
  	
 

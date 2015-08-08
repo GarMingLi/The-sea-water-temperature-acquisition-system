@@ -142,6 +142,8 @@ void Read_Temperature(uint8_t *sign , uint16_t *temp )
     uint16_t tmp ;
     
     DS18B20_Init();
+    delay_us(10);
+
     Write_OneByte_ToDS18b20(ROM_Read_Cmd);
   
     DS18B20_Init();
@@ -197,12 +199,12 @@ void Write_EEPROM(unsigned char Th,unsigned char Tl,unsigned char Register_Con )
     Write_OneByte_ToDS18b20(Tl);//Tl=FF 最高位符号位
     Write_OneByte_ToDS18b20(Register_Con);//12位模式
     
-    delay_ms(100);
-    DS18B20_Init();
+    delay_ms(1);
+//     DS18B20_Init();
     Write_OneByte_ToDS18b20(ROM_Skip_Cmd);
     Write_OneByte_ToDS18b20(Copy_Scratchpad);//将寄存器的配置值写入EEPROM
     
-    delay_ms(100);
+    delay_ms(1);
  
 }
 /******************************************

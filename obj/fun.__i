@@ -1,0 +1,5 @@
+-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp 
+-I D:\Keil\ARM\RV31\INC 
+-I D:\Keil\ARM\CMSIS\Include 
+-I D:\Keil\ARM\Inc\ST\STM32L1xx 
+-DUSE_STDPERIPH_DRIVER -o ".\obj\fun.o" --omf_browse ".\obj\fun.crf" --depend ".\obj\fun.d" "app\fun.c"

@@ -131,6 +131,7 @@ static void Task0(void *p_arg)
                 Power_3_3_ON()                                                           ;
                 Power_5_ON()                                                             ;                                 
                 IIC_Init()                                                               ;
+                W_P_Sensor_Init()                                                        ;
                 OSTaskSuspend(  (OS_TCB   *) &task2TCB                                   , 
                                 (OS_ERR   *) &err)                                       ;				
 			    OSTaskResume(   (OS_TCB   *) &task1TCB                                   , 
@@ -160,18 +161,10 @@ static void Task1(void *p_arg)
                 (OS_ERR    *)&err)                                                       ;
         
     while(1)                                                                             {			                         
-        if (5 == Count++)                                                                {
-            Set_Time(time)                                                               ;
-            USART1_SendString("Ë¯Ãßmodel\n",strlen((char *)"Ë¯Ãßmodel\n"))               ;  
-            Set_Alarm_Time(5)                                                            ;
-            RTC_WakeUpCmd(ENABLE)                                                        ;
-            PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                        ;
-            RTC_WakeUpCmd(DISABLE)                                                       ;
-            Clock_Resume()                                                               ;  
-                                                                                         }
-        
-        Read_Temperature(&sign,&WT_temp)                                                 ;	 								
-		memset(data,'\0',sizeof(data))                                                   ;	
+       
+//         Read_Temperature(&sign,&WT_temp)                                                 ;	 								
+		WT_temp = Read_Temp_Filter((pfunc)Check_Water_DelayMs, 20)                       ; 
+        memset(data,'\0',sizeof(data))                                                   ;	
         itoa(WT_temp, &data[0],10)                                                       ;
         strcat((char *)data,"\t")                                                        ;
         USART1_SendString(data,strlen((char *)data))                                     ;
@@ -232,6 +225,37 @@ static void Task1(void *p_arg)
         strcat((char *)data,"\n")                                                        ;
 		USART1_SendString(data,strlen((char *)data))                                     ;
         
+        if (0 == Count++%5)                                                                {
+            Set_Time(time)                                                               ;
+            USART1_SendString("Ë¯Ãßmodel\n",strlen((char *)"Ë¯Ãßmodel\n"))               ;  
+            Set_Alarm_Time(5)                                                            ;
+            RTC_WakeUpCmd(ENABLE)                                                        ;
+            Cat24c_PowerOff()                                                            ;
+            WP_PowerOff()                                                                ;
+            WP_DS18B20Off()                                                              ;
+            Power_3_3_OFF()                                                              ;
+            Power_5_OFF()                                                                ;                
+#if defined  (STOP_Mode)  
+            USART1_SendString("STOPMode\n",strlen((char *)"STOPMode\n")) ; 
+            PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                        ;
+            Clock_Resume()                                                               ;           
+#elif defined  (TANDBY_Mode) 
+            USART1_SendString("STANDBYMode\n",strlen((char *)"STANDBYMode\n")) ; 
+            PWR_EnterSTANDBYMode();
+#else
+            PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                        ;
+            Clock_Resume()                                                               ;           
+#endif            
+            RTC_WakeUpCmd(DISABLE)                                                       ;
+            OSTimeDly(  (OS_TICK    )20                                                      , 
+	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+	                (OS_ERR    *)&err)                                                   ;
+            Power_3_3_ON()                                                               ;
+            Power_5_ON()                                                                 ;                                 
+            IIC_Init()                                                                   ;
+            W_P_Sensor_Init()                                                            ;
+                                                                                         }
+ 
         OSTimeDly(  (OS_TICK    )2000                                                    , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
