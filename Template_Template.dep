@@ -1,5 +1,5 @@
 Dependencies for Project 'Template', Target 'Template': (DO NOT MODIFY !)
-F (.\app\app.c)(0x55C43D62)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\app.o" --omf_browse ".\obj\app.crf" --depend ".\obj\app.d")
+F (.\app\app.c)(0x55C55EC5)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\app.o" --omf_browse ".\obj\app.crf" --depend ".\obj\app.d")
 I (.\bsp\bsp.h)(0x55C07B73)
 I (D:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x50F96150)
 I (D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h)(0x50F9614E)
@@ -290,7 +290,7 @@ I (.\bsp\inc\RTC.h)(0x55C43D19)
 I (.\bsp\inc\NRF24L01.h)(0x550CFBC4)
 I (.\bsp\inc\Check_water.h)(0x550CFBD3)
 I (.\bsp\inc\power.h)(0x55C43AC2)
-F (.\bsp\src\Check_Water.c)(0x55C4241D)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\check_water.o" --omf_browse ".\obj\check_water.crf" --depend ".\obj\check_water.d")
+F (.\bsp\src\Check_Water.c)(0x55C56067)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\check_water.o" --omf_browse ".\obj\check_water.crf" --depend ".\obj\check_water.d")
 I (.\bsp\inc\Check_water.h)(0x550CFBD3)
 I (.\bsp\bsp.h)(0x55C07B73)
 I (D:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x50F96150)
@@ -363,7 +363,7 @@ I (.\library\inc\stm32l1xx_tim.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
-F (.\bsp\src\ds18b20.c)(0x55C2CADA)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\ds18b20.o" --omf_browse ".\obj\ds18b20.crf" --depend ".\obj\ds18b20.d")
+F (.\bsp\src\ds18b20.c)(0x55C55FEC)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\ds18b20.o" --omf_browse ".\obj\ds18b20.crf" --depend ".\obj\ds18b20.d")
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\bsp.h)(0x55C07B73)
 I (D:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x50F96150)

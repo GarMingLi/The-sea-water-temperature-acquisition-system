@@ -175,7 +175,7 @@ void Read_Temperature(uint8_t *sign , uint16_t *temp )
      *sign = 1 ;
     }
 	  				   
-    *temp = tmp*6.25;  //整数部分
+    *temp = tmp*0.625;  //整数部分
 
 }
 /******************************************

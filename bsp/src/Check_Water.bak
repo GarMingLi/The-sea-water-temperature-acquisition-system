@@ -74,10 +74,8 @@ void EXTI0_IRQHandler(void)
   if(EXTI_GetITStatus(EXTI_Line0) != RESET)				                   {		
       if(PWR_GetFlagStatus(PWR_FLAG_WU) != RESET)                          {    // 检查唤醒标志是否设置              
           PWR_ClearFlag(PWR_FLAG_WU)                                       ;    // 清除唤醒标志 
-          //CPU_Init()                                                     ;
-          SysTickInit()                                                    ;
-          USART_ReConfig()                                                 ;        
-                                                                           }                                                                           
+                                                                           } 
+      PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                ;                                                                             
       EXTI_ClearITPendingBit(EXTI_Line0)                                   ;	//清除中断请求标志
                                                                            }
 }
@@ -88,6 +86,33 @@ void Check_Water(void)
     PWR_WakeUpPinCmd(PWR_WakeUpPin_1, ENABLE)                              ;
 	GPIO_DQ_Init()                                                         ;
 }
+
+
+//SystemInit();
+
+
+
+//or
+
+
+//     RCC_HSEConfig(RCC_HSE_ON);
+//     /* Wait till HSE is ready */
+//     while (RCC_GetFlagStatus(RCC_FLAG_HSERDY) == RESET)
+//     {}
+//     
+//     /* Enable PLL */
+//     RCC_PLLCmd(ENABLE);
+//     
+//     /* Wait till PLL is ready */
+//     while (RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET)
+//     {}
+//     
+//     /* Select PLL as system clock source */
+//     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+//     
+//     /* Wait till PLL is used as system clock source */
+//     while (RCC_GetSYSCLKSource() != 0x0C)
+//     {}
 
 
 
