@@ -1,5 +1,5 @@
 Dependencies for Project 'Template', Target 'Template': (DO NOT MODIFY !)
-F (.\app\app.c)(0x55C5C942)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\app.o" --omf_browse ".\obj\app.crf" --depend ".\obj\app.d")
+F (.\app\app.c)(0x55CBF2A8)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\app.o" --omf_browse ".\obj\app.crf" --depend ".\obj\app.d")
 I (.\bsp\bsp.h)(0x55C07B73)
 I (D:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x50F96150)
 I (D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h)(0x50F9614E)
@@ -39,7 +39,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)
@@ -99,7 +99,7 @@ I (.\ucosiii\uC-LIB\Source\lib_ascii.h)(0x4E5373D6)
 I (.\ucosiii\uCOS-III\Source\os_type.h)(0x4F47150C)
 I (.\ucosiii\uCOS-III\Ports\os_cpu.h)(0x4E2E7700)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)
@@ -153,7 +153,7 @@ I (.\ucosiii\uC-LIB\Source\lib_ascii.h)(0x4E5373D6)
 I (.\ucosiii\uCOS-III\Source\os_type.h)(0x4F47150C)
 I (.\ucosiii\uCOS-III\Ports\os_cpu.h)(0x4E2E7700)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)
@@ -190,7 +190,7 @@ I (.\library\inc\misc.h)(0x4F1D441E)
 I (D:\Keil\ARM\ARMCC\bin\..\include\String.h)(0x50F96150)
 I (D:\Keil\ARM\ARMCC\bin\..\include\math.h)(0x50F96150)
 I (D:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x50F96150)
-F (.\bsp\bsp.c)(0x55C5B66C)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\bsp.o" --omf_browse ".\obj\bsp.crf" --depend ".\obj\bsp.d")
+F (.\bsp\bsp.c)(0x55C84CEB)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\bsp.o" --omf_browse ".\obj\bsp.crf" --depend ".\obj\bsp.d")
 I (bsp\bsp.h)(0x55C07B73)
 I (D:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x50F96150)
 I (D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h)(0x50F9614E)
@@ -230,7 +230,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (bsp\bsp_cfg.h)(0x55C5A358)
+I (bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\bsp.h)(0x55C07B73)
@@ -282,7 +282,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)
@@ -331,7 +331,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)
@@ -404,7 +404,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)
 I (.\bsp\inc\RTC.h)(0x55C43D19)
@@ -453,7 +453,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)
@@ -502,7 +502,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)
@@ -551,7 +551,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\RTC.h)(0x55C43D19)
@@ -600,7 +600,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)
@@ -612,7 +612,7 @@ F (.\ucosiii\uCOS-III\Cfg\os_cfg.h)(0x550CF75C)()
 F (.\ucosiii\uCOS-III\Cfg\os_cfg_app.h)(0x4F471508)()
 F (.\ucosiii\uC-LIB\Cfg\lib_cfg.h)(0x4E5373D6)()
 F (.\ucosiii\uC-CPU\Cfg\cpu_cfg.h)(0x4E570B9A)()
-F (.\bsp\bsp_cfg.h)(0x55C5A358)()
+F (.\bsp\bsp_cfg.h)(0x55C80A9C)()
 F (.\app\app_cfg.h)(0x550D6947)()
 F (.\ucosiii\uCOS-III\Cfg\os_app_hooks.c)(0x559B82E0)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\app -I.\bsp\inc -I.\cmsis -I.\library\inc -I.\ucosiii\uC-CPU\Cfg -I.\ucosiii\uC-CPU\Ports -I.\ucosiii\uC-CPU\Source -I.\ucosiii\uC-LIB\Cfg -I.\ucosiii\uC-LIB\Ports -I.\ucosiii\uC-LIB\Source -I.\ucosiii\uCOS-III\Cfg -I.\ucosiii\uCOS-III\Ports -I.\ucosiii\uCOS-III\Source -I.\bsp -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\ST\STM32L1xx -DUSE_STDPERIPH_DRIVER -o ".\obj\os_app_hooks.o" --omf_browse ".\obj\os_app_hooks.crf" --depend ".\obj\os_app_hooks.d")
 I (.\ucosiii\uCOS-III\Source\os.h)(0x4F47150E)
@@ -655,7 +655,7 @@ I (.\library\inc\stm32l1xx_usart.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_wwdg.h)(0x4F1D441E)
 I (.\library\inc\misc.h)(0x4F1D441E)
 I (.\library\inc\stm32l1xx_syscfg.h)(0x4F1D441E)
-I (.\bsp\bsp_cfg.h)(0x55C5A358)
+I (.\bsp\bsp_cfg.h)(0x55C80A9C)
 I (.\bsp\inc\delay.h)(0x55C065BF)
 I (.\bsp\inc\ds18b20.h)(0x55C19BD0)
 I (.\bsp\inc\W_P_Sensor.h)(0x55C304AA)

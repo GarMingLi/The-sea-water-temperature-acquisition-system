@@ -126,6 +126,7 @@ void BspInit(void)
     Check_Water()                                        ;
     clock_ini()                                          ;
 //     WP_PowerOff()                                        ;
+    nRF24L01_Initial()                                   ;
     Power_3_3_OFF()                                      ;
     Power_5_OFF()                                        ;
     USART1_SendString("jixuhehe\n",strlen((char *)"jixuhehe\n")) ; 
