@@ -122,13 +122,11 @@ void BspInit(void)
 #endif    
  
     Delay_init()                                         ;
-    USART1_SendString("hehe\n",strlen((char *)"hehe\n")) ; 
     Check_Water()                                        ;
     clock_ini()                                          ;
 //     WP_PowerOff()                                        ;
-    nRF24L01_Initial()                                   ;
     Power_3_3_OFF()                                      ;
     Power_5_OFF()                                        ;
-    USART1_SendString("jixuhehe\n",strlen((char *)"jixuhehe\n")) ; 
+    USART1_SendString("start\n",strlen((char *)"jixuhehe\n")) ; 
 }
 

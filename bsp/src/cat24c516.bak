@@ -235,7 +235,10 @@ void CAT24C_Mask()
     uint8_t  i                                                     ;
     uint16_t word_adds;
     WP_L()                                                         ;    
-    IIC_Start()                                                    ;                              ;
+    IIC_Start()                                                    ;
+//     IIC_Send_Byte(Address_Write)                                   ;
+//     IIC_Send_Byte(word_adds >> 8)                                  ;                                          
+//     IIC_Send_Byte(word_adds & 0xff)                                ;
     IIC_Stop()                                                     ;
     WP_H()                                                         ;
 }

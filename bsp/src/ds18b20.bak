@@ -143,20 +143,20 @@ void Read_Temperature(uint8_t *sign , uint16_t *temp )
     
     DS18B20_Init();
     delay_us(10);
+
     Write_OneByte_ToDS18b20(ROM_Read_Cmd);
   
     DS18B20_Init();
 	
     Write_OneByte_ToDS18b20(ROM_Skip_Cmd);//跳过读序列号操作
     Write_OneByte_ToDS18b20(Convert_T); //启动温度转换
-	delay_ms(700);
+	delay_ms(100);
     
     DS18B20_Init();
     Write_OneByte_ToDS18b20(ROM_Skip_Cmd);
 	delay_us(10);
     Write_OneByte_ToDS18b20(Read_Scratchpad); //读取寄存器内容（可以从寄存器0读到寄存器8）
-    delay_ms(700);
-
+    
     a= Read_OneByte_FromDS18b20();     //温度低8位
     b= Read_OneByte_FromDS18b20();     //温度高8位
     //c= Read_OneByte_FromDS18B20();   //TH

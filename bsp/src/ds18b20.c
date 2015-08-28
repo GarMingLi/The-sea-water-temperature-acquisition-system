@@ -150,7 +150,7 @@ void Read_Temperature(uint8_t *sign , uint16_t *temp )
 	
     Write_OneByte_ToDS18b20(ROM_Skip_Cmd);//跳过读序列号操作
     Write_OneByte_ToDS18b20(Convert_T); //启动温度转换
-	delay_ms(100);
+	delay_ms(200);
     
     DS18B20_Init();
     Write_OneByte_ToDS18b20(ROM_Skip_Cmd);

@@ -58,7 +58,6 @@ static void EXIT_NVIC_InitStructReadtempCmd()
 	NVIC_InitStruct.NVIC_IRQChannelSubPriority = SubPri_EXIT               ;   //从中断优先级设置为0
 	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE                            ;   //使能中断
 	NVIC_Init(&NVIC_InitStruct)                                            ;   //初始化嵌套向量控制器NVIC寄存器
-	//注意这里EXTI9_5_IRQn是EXTI5到EXTI9共用一个中断响应函数
 }									   
 									   
 

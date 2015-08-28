@@ -39,6 +39,7 @@ extern void CAT24C_Word_W(uint16_t word_adds, uint8_t * words, uint16_t count);
 extern void CAT24C_Page_W(uint16_t word_adds, uint8_t * words, uint8_t count);
 extern void CAT24C_Selective_R(uint16_t word_adds, uint8_t * words, uint8_t count);
 extern void CAT24C_Sequential_R(uint16_t word_adds, uint8_t * words, uint8_t count);
+extern void CAT24C_Mask(void);
 
 #endif
 

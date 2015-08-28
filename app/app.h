@@ -19,6 +19,7 @@ void Check_Water_DelayMs(uint8_t);
 uint16_t Read_Temp_Filter(pfunc delay, uint16_t ms);
 uint16_t Read_WP_Filter(pfunc delay, uint16_t ms);
 void TimingDelay_Decrement(void);
+void App_GetTime_Init(void);
 
 
 #endif

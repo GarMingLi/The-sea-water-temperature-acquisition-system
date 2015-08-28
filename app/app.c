@@ -13,6 +13,11 @@ static CPU_STK task2_stk[TASK_STK_SIZE_2]                                       
 static OS_TCB task3TCB                                                                   ;
 static CPU_STK task3_stk[TASK_STK_SIZE_3]                                                ;
 
+typedef union 
+{
+    uint8_t  data_var[2];
+    uint16_t data;
+}W_Data;
 
 void KernelMain(void)
 {
@@ -97,6 +102,11 @@ static void TaskStart(void)
                     (OS_OPT     )(OS_OPT_TASK_STK_CHK |                                  \
                                   OS_OPT_TASK_STK_CLR)                                   , 
                     (OS_ERR     *)&err)                                                  ;
+    OSTaskSuspend(  (OS_TCB   *) &task1TCB                                               , 
+                    (OS_ERR   *) &err)                                                   ;				
+    OSTaskSuspend(  (OS_TCB   *) &task2TCB                                               , 
+                    (OS_ERR   *) &err)                                                   ;				
+
     OSTaskDel(      (OS_TCB     *)&taskStartTCB                                          , 
                     (OS_ERR     *)&err)                                                  ;
 }
@@ -104,8 +114,14 @@ static void TaskStart(void)
 static void Task0(void *p_arg)
 {
     OS_ERR  err                                                                          ;
-    CPU_INT08U  flag =0x11                                                               ;
+    CPU_INT08U  flag = 0x11                                                              ;
+    App_GetTime_Init()                                                                   ;
+    OSTaskResume(   (OS_TCB   *) &task1TCB                                               , 
+                                (OS_ERR   *) &err)                                       ;								 
+    OSTaskResume(   (OS_TCB   *) &task2TCB                                               , 
+                                (OS_ERR   *) &err)                                       ;								 
 
+    
     while(1)                                                                             {		
         if(Get_Status((pfunc)Check_Water_DelayMs, 1000) == Power_Down)                   {			//Ë®ÏÂ¹¤×÷								 
     		
@@ -114,9 +130,9 @@ static void Task0(void *p_arg)
                 Cat24c_PowerOff()                                                        ;
                 Power_3_3_OFF()                                                          ;
                 Power_5_OFF()                                                            ;
-                OSTimeDly(  (OS_TICK    )200                                                       , 
-                            (OS_OPT     )OS_OPT_TIME_DLY                                         , 
-                            (OS_ERR    *)&err)                                                   ;
+                OSTimeDly(  (OS_TICK    )200                                             , 
+                            (OS_OPT     )OS_OPT_TIME_DLY                                 , 
+                            (OS_ERR    *)&err)                                           ;
                 OSTaskSuspend(  (OS_TCB   *) &task1TCB                                   , 
                                 (OS_ERR   *) &err)                                       ;				
 			    OSTaskResume(   (OS_TCB   *) &task2TCB                                   , 
@@ -137,7 +153,7 @@ static void Task0(void *p_arg)
                                 (OS_ERR   *) &err)                                       ;	
 								                                                         }	
 					                                                                     }											
-
+        USART1_SendString("OKOK\n",strlen((char *)"OKOK\n")) ; 
         OSTimeDly(  (OS_TICK    )200                                                     , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
@@ -149,46 +165,18 @@ static void Task1(void *p_arg)
 {
     OS_ERR  err                                                                          ;
     CPU_INT08U aa[] = "0123456789\t";
-    CPU_INT16U WT_temp = 0;
     CPU_INT08U data[32];
     CPU_INT08U sign = 0;
-    CPU_INT16U WP_temp = 0;
     CPU_INT08U Count = 0;
     CPU_INT08U time[]={15,8,30,23,59,11};   
-    CPU_INT08U NRF_Data[32];
     
     OSTimeDly(  (OS_TICK    )200                                                         , 
                 (OS_OPT     )OS_OPT_TIME_DLY                                             , 
                 (OS_ERR    *)&err)                                                       ;
         
     while(1)                                                                             {			                           
-//         Read_Temperature(&sign,&WT_temp)                                                 ;	 								
-		WT_temp = Read_Temp_Filter((pfunc)Check_Water_DelayMs, 20)                       ; 
-        memset(data,'\0',sizeof(data))                                                   ;	
-        itoa(WT_temp, &data[0],10)                                                       ;
-        strcat((char *)data,"\t")                                                        ;
-        USART1_SendString(data,strlen((char *)data))                                     ;
-        OSTimeDly(  (OS_TICK    )20                                                      , 
-	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
-	                (OS_ERR    *)&err)                                                   ;
-
-        WP_temp = Read_WP_Filter((pfunc)Check_Water_DelayMs, 50)                         ;
-        memset(data,'\0',sizeof(data))                                                   ;	        
-        itoa(WP_temp, &data[0],10)                                                       ;
-        strcat((char *)data,"\t")                                                        ;
-        USART1_SendString(data,strlen((char *)data))                                     ;
-        OSTimeDly(  (OS_TICK    )20                                                      , 
-	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
-	                (OS_ERR    *)&err)                                                   ;
-        
-        CAT24C_Word_W(0x31, aa, strlen((char *)aa))                                      ;
-        OSTimeDly(  (OS_TICK    )200                                                     , 
-	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
-	                (OS_ERR    *)&err)                                                   ;
-		memset(data,'\0',sizeof(data))                                                   ;	        
-        CAT24C_Selective_R(0x31, data, strlen((char *)aa))                               ;
-        USART1_SendString(data, strlen((char *)data))                                    ; 
-       
+		
+        USART1_SendString("hehe\n",strlen((char *)"hehe\n")) ; 
         memset(data,'\0',sizeof(data))                                                   ;	
         strcat((char *)data,"Year:")                                                     ;
         itoa(Get_Time().Year+2000, &data[5],10)                                          ;
@@ -223,43 +211,7 @@ static void Task1(void *p_arg)
         strcat((char *)data,"Sec:")                                                      ;
         itoa(Get_Time().Sec, &data[4],10)                                                ;
         strcat((char *)data,"\n")                                                        ;
-		USART1_SendString(data,strlen((char *)data))                                     ;
-        
-        memset(NRF_Data,'\0',sizeof(NRF_Data));
-		strcat((char *)NRF_Data,"$");
-        NRF24L01_Send(NRF_Data); 
-        
-        if (10 == Count++%5)                                                             {
-            Set_Time(time)                                                               ;
-            USART1_SendString("Ë¯Ãßmodel\n",strlen((char *)"Ë¯Ãßmodel\n"))               ;  
-            Set_Alarm_Time(5)                                                            ;
-            RTC_WakeUpCmd(ENABLE)                                                        ;
-            Cat24c_PowerOff()                                                            ;
-            WP_PowerOff()                                                                ;
-            WP_DS18B20Off()                                                              ;
-            Power_3_3_OFF()                                                              ;
-            Power_5_OFF()                                                                ;                
-#if defined  (STOP_Mode)  
-            USART1_SendString("STOPMode\n",strlen((char *)"STOPMode\n")) ; 
-            PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                        ;
-            Clock_Resume()                                                               ;           
-#elif defined  (TANDBY_Mode) 
-            USART1_SendString("STANDBYMode\n",strlen((char *)"STANDBYMode\n")) ; 
-            PWR_EnterSTANDBYMode();
-#else
-            PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                        ;
-            Clock_Resume()                                                               ;           
-#endif            
-            RTC_WakeUpCmd(DISABLE)                                                       ;
-            OSTimeDly(  (OS_TICK    )20                                                  , 
-	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
-	                (OS_ERR    *)&err)                                                   ;
-            Power_3_3_ON()                                                               ;
-            Power_5_ON()                                                                 ;                                 
-            IIC_Init()                                                                   ;
-            W_P_Sensor_Init()                                                            ;
-                                                                                         }
- 
+		USART1_SendString(data,strlen((char *)data))                                     ;        
         OSTimeDly(  (OS_TICK    )2000                                                    , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
@@ -269,11 +221,34 @@ static void Task1(void *p_arg)
 static void Task2(void *p_arg)
 {
     OS_ERR  err                                                                          ;
-    
+    CPU_INT08U  data_string[32]                                                          ;
+    CPU_INT08U  data_buff[16]                                                            ;    
+    CPU_INT16U  WT_temp = 0                                                               ;
+    CPU_INT16U  WP_temp = 0                                                               ;
+    OSTimeDly(  (OS_TICK    )200                                                         , 
+                (OS_OPT     )OS_OPT_TIME_DLY                                             , 
+                (OS_ERR    *)&err)                                                       ;
+      
     while(1)                                                                             {		
-//         Power_3_3_OFF();
-        PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                            ;
-        OSTimeDly(  (OS_TICK    )2000                                                    , 
+		WT_temp = Read_Temp_Filter((pfunc)Check_Water_DelayMs, 20)                       ; 
+        memset(data_buff,'\0',sizeof(data_buff))                                                   ;	
+        itoa(WT_temp, &data_buff[0],10)                                                       ;
+        strcat((char *)data_buff,"\t")                                                        ;
+        USART1_SendString(data_buff,strlen((char *)data_buff))                                     ;
+        OSTimeDly(  (OS_TICK    )20                                                      , 
+	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+	                (OS_ERR    *)&err)                                                   ;
+
+        WP_temp = Read_WP_Filter((pfunc)Check_Water_DelayMs, 50)                         ;
+        memset(data_buff,'\0',sizeof(data_buff))                                                   ;	        
+        itoa(WP_temp, &data_buff[0],10)                                                       ;
+        strcat((char *)data_buff,"\t")                                                        ;
+        USART1_SendString(data_buff,strlen((char *)data_buff))                                     ;
+        OSTimeDly(  (OS_TICK    )20                                                      , 
+	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+	                (OS_ERR    *)&err)                                                   ;
+    
+       OSTimeDly(  (OS_TICK    )200                                                    , 
 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
 	                (OS_ERR    *)&err)                                                   ;
                                                                                          }
@@ -292,4 +267,116 @@ static void Task3(void *p_arg)
 	                (OS_ERR    *)&err)                                                   ;
                                                                                          }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// static void Task1(void *p_arg)
+// {
+//     OS_ERR  err                                                                          ;
+//     CPU_INT08U aa[] = "0123456789\t";
+//     CPU_INT16U WT_temp = 0;
+//     CPU_INT08U data[32];
+//     CPU_INT08U sign = 0;
+//     CPU_INT16U WP_temp = 0;
+//     CPU_INT08U Count = 0;
+//     CPU_INT08U time[]={15,8,30,23,59,11};   
+//     CPU_INT08U NRF_Data[32];
+//     
+//     OSTimeDly(  (OS_TICK    )200                                                         , 
+//                 (OS_OPT     )OS_OPT_TIME_DLY                                             , 
+//                 (OS_ERR    *)&err)                                                       ;
+//         
+//     while(1)                                                                             {			                           
+    
+//         CAT24C_Word_W(0x31, aa, strlen((char *)aa))                                      ;
+//         OSTimeDly(  (OS_TICK    )200                                                     , 
+// 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+// 	                (OS_ERR    *)&err)                                                   ;
+// 		memset(data,'\0',sizeof(data))                                                   ;	        
+//         CAT24C_Selective_R(0x31, data, strlen((char *)aa))                               ;
+//         USART1_SendString(data, strlen((char *)data))                                    ; 
+//        
+
+//         
+//         memset(NRF_Data,'\0',sizeof(NRF_Data));
+// 		strcat((char *)NRF_Data,"$");
+//         NRF24L01_Send(NRF_Data); 
+//         
+//         if (10 == Count++%5)                                                             {
+//             Set_Time(time)                                                               ;
+//             USART1_SendString("Ë¯Ãßmodel\n",strlen((char *)"Ë¯Ãßmodel\n"))               ;  
+//             Set_Alarm_Time(5)                                                            ;
+//             RTC_WakeUpCmd(ENABLE)                                                        ;
+//             Cat24c_PowerOff()                                                            ;
+//             WP_PowerOff()                                                                ;
+//             WP_DS18B20Off()                                                              ;
+//             Power_3_3_OFF()                                                              ;
+//             Power_5_OFF()                                                                ;                
+// #if defined  (STOP_Mode)  
+//             USART1_SendString("STOPMode\n",strlen((char *)"STOPMode\n")) ; 
+//             PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                        ;
+//             Clock_Resume()                                                               ;           
+// #elif defined  (TANDBY_Mode) 
+//             USART1_SendString("STANDBYMode\n",strlen((char *)"STANDBYMode\n")) ; 
+//             PWR_EnterSTANDBYMode();
+// #else
+//             PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                        ;
+//             Clock_Resume()                                                               ;           
+// #endif            
+//             RTC_WakeUpCmd(DISABLE)                                                       ;
+//             OSTimeDly(  (OS_TICK    )20                                                  , 
+// 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+// 	                (OS_ERR    *)&err)                                                   ;
+//             Power_3_3_ON()                                                               ;
+//             Power_5_ON()                                                                 ;                                 
+//             IIC_Init()                                                                   ;
+//             W_P_Sensor_Init()                                                            ;
+//                                                                                          }
+//  
+//         OSTimeDly(  (OS_TICK    )2000                                                    , 
+// 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+// 	                (OS_ERR    *)&err)                                                   ;
+//                                                                                          }
+// }
+
+// static void Task2(void *p_arg)
+// {
+//     OS_ERR  err                                                                          ;
+//     
+//     while(1)                                                                             {		
+// //         Power_3_3_OFF();
+//         PWR_EnterSTOPMode(PWR_Regulator_ON,PWR_STOPEntry_WFI)                            ;
+//         OSTimeDly(  (OS_TICK    )2000                                                    , 
+// 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+// 	                (OS_ERR    *)&err)                                                   ;
+//                                                                                          }
+// }
+
+
+// static void Task3(void *p_arg)
+// {
+//     OS_ERR  err                                                                          ;
+//     
+//     while(1)                                                                             {		
+//         GPIO_ToggleBits(Led1_PType, Led1_Pin)                                            ;	         
+// //         LED1_ON();
+//         OSTimeDly(  (OS_TICK    )200                                                     , 
+// 	                (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+// 	                (OS_ERR    *)&err)                                                   ;
+//                                                                                          }
+// }
 

@@ -67,4 +67,9 @@
 #define  BKP_RTC_Flag             0x32F2
 #define  BKP_LOCK_RTC()           RTC_WriteBackupRegister(RTC_BKP_DR0, BKP_RTC_Flag)
 
+#define  BKP_CheckLOCK_TimeInit()      RTC_ReadBackupRegister(RTC_BKP_DR1)
+#define  BKP_TimeInit_Flag             0x5A5A
+#define  BKP_LOCK_TimeInit()           RTC_WriteBackupRegister(RTC_BKP_DR1, BKP_TimeInit_Flag)
+
+
 

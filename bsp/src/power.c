@@ -88,6 +88,13 @@ void WP_DS18B20Off(void)
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_400KHz      ;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP            ;
     GPIO_Init(DS18B20_PType, &GPIO_InitStructure)          ;
+}
+
+void Mask_CatPin(void)
+{
+    SCL_L()                                                ;
+    SDA_H()                                                ;
+    WP_H()                                                 ;
 
 }
 

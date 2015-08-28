@@ -2,16 +2,15 @@
 
 void power_init()
 {
-    //     PWR_WakeUpPinCmd(PWR_WakeUpPin_1, ENABLE)     ;
     GPIO_InitTypeDef  gpio_init                          ;  
 
     GPIO_StructInit((GPIO_InitTypeDef*)&gpio_init)       ;
-//     GPIO_Init(GPIOA, &gpio_init)                         ; 
-//     GPIO_Init(GPIOB, &gpio_init)                         ; 
-//     GPIO_Init(GPIOC, &gpio_init)                         ; 
+    GPIO_Init(GPIOA, &gpio_init)                         ; 
+    GPIO_Init(GPIOB, &gpio_init)                         ; 
+    GPIO_Init(GPIOC, &gpio_init)                         ; 
     RCC_AHBPeriphClockCmd(
-//                       RCC_AHBPeriph_GPIOA                |
-//                       RCC_AHBPeriph_GPIOB                |
+                      RCC_AHBPeriph_GPIOA                |
+                      RCC_AHBPeriph_GPIOB                |
                       RCC_AHBPeriph_GPIOC                ,
                       DISABLE)                           ; 
     

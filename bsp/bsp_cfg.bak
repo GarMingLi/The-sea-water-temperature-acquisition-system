@@ -1,5 +1,4 @@
 #define Led_Debug                         //使用Led
-#pragma message("使用了LED")
 #define USART_Debug                       //使用串口
 
 #define  STOP_Mode                        //使用STOP模式

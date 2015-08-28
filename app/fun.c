@@ -22,7 +22,7 @@ uint16_t Read_Temp_Filter(pfunc delay, uint16_t ms)
         if(sign*temp<600) {
             break;
         }
-        OSTimeDly(  (OS_TICK    )50                                                      , 
+        OSTimeDly(  (OS_TICK    )50                                                   , 
 	             (OS_OPT     )OS_OPT_TIME_DLY                                         ,  
 	             (OS_ERR    *)&err)                                                   ;
     }
@@ -61,3 +61,42 @@ uint16_t Read_WP_Filter(pfunc delay, uint16_t ms)
     return temp;   
 }
 
+
+void App_GetTime_Init()
+{
+    OS_ERR  err                                                                          ;
+    CPU_INT08U  data[32]                                                                 ;
+    CPU_INT08U  status                                                                   ;
+    
+    if(BKP_CheckLOCK_TimeInit()!= BKP_RTC_Flag)                                          { 
+        Power_3_3_ON()                                                                   ;
+        IIC_Init()                                                                       ;
+        OSTimeDly(  (OS_TICK    )200                                                     , 
+                    (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+                    (OS_ERR    *)&err)                                                   ;
+        CAT24C_Mask()                                                                    ;
+        OSTimeDly(  (OS_TICK    )200                                                     , 
+                    (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+                    (OS_ERR    *)&err)                                                   ;
+
+        nRF24L01_Initial()                                                               ;
+        OSTimeDly(  (OS_TICK    )200                                                     , 
+                    (OS_OPT     )OS_OPT_TIME_DLY                                         , 
+                    (OS_ERR    *)&err)                                                   ;
+        while (1)                                                                        {
+            memset(data,'\0', sizeof(data))                                              ;
+            strcat((char *)data, "$")                                                    ;
+            data[1] = Get_Data_Time                                                      ;
+            NRF24L01_Send(data)                                                          ;
+            memset(data,'\0', sizeof(data))                                              ;
+            status = NRF24L01_Receive(data)                                              ;
+            if (data[1] == Get_Time_Over)                                                {
+                Set_Time(&data[2])                                                       ;
+                break                                                                    ;
+                                                                                         }
+            OSTimeDly(  (OS_TICK    )2                                                   , 
+                        (OS_OPT     )OS_OPT_TIME_DLY                                     , 
+                        (OS_ERR    *)&err)                                               ;
+                                                                                         }            
+                                                                                         } 
+}
