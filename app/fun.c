@@ -19,7 +19,7 @@ uint16_t Read_Temp_Filter(pfunc delay, uint16_t ms)
     uint32_t Sum = 0;
     while(1) {
         Read_Temperature(&sign,&temp);
-        if(sign*temp<600) {
+        if(sign*temp<850) {
             break;
         }
         OSTimeDly(  (OS_TICK    )50                                                   , 
@@ -34,10 +34,10 @@ uint16_t Read_Temp_Filter(pfunc delay, uint16_t ms)
     
     L_From_B(Temp_Data,Temp_N);
     //去掉最大最小值求平均
-    for(i=1; i<Temp_N-1; i++){
+    for(i=2; i<Temp_N-2; i++){
         Sum += Temp_Data[i];
     }
-    temp = Sum/(Temp_N-2);
+    temp = Sum/(Temp_N-4);
     return temp;   
 }
 
@@ -90,13 +90,16 @@ void App_GetTime_Init()
             NRF24L01_Send(data)                                                          ;
             memset(data,'\0', sizeof(data))                                              ;
             status = NRF24L01_Receive(data)                                              ;
-            if (data[1] == Get_Time_Over)                                                {
-                Set_Time(&data[2])                                                       ;
-                break                                                                    ;
+            if(status == 1)                                                              {
+                if (data[1] == Get_Time_Over)                                            {
+                    Set_Time(&data[2])                                                   ;
+                    BKP_LOCK_TimeInit()                                                  ;
+                    break                                                                ;
                                                                                          }
+                                                                                         }
+            
             OSTimeDly(  (OS_TICK    )2                                                   , 
                         (OS_OPT     )OS_OPT_TIME_DLY                                     , 
                         (OS_ERR    *)&err)                                               ;
-                                                                                         }            
-                                                                                         } 
+                                                                                         }                                                                                                   } 
 }
